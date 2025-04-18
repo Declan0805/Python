@@ -44,6 +44,25 @@ def test_channeldown():
     tv.channel_down()
     assert tv.get_channel() == Television.MAX_CHANNEL
 def test_volumeup():
-    pass
+    tv = Television()
+    tv.power()
+    assert tv.get_muted() == False
+    tv.volume_up()
+    assert tv.get_volume() == Television.MIN_VOLUME + 1
+    while tv.get_volume() < Television.MAX_VOLUME:
+        tv.volume_up()
+    assert tv.get_volume() == Television.MAX_VOLUME
+    tv.volume_up()
+    assert tv.get_volume() == Television.MAX_VOLUME
 def test_volumedown():
-    pass
+    tv = Television()
+    tv.power()
+    assert tv.get_muted() == False
+    tv.volume_down()
+    assert tv.get_volume() == Television.MIN_VOLUME
+    while tv.get_volume() < Television.MAX_VOLUME:
+        tv.volume_up()
+    assert tv.get_volume() == Television.MAX_VOLUME
+    while tv.get_volume() > Television.MIN_VOLUME:
+        tv.volume_down()
+    assert tv.get_volume() == Television.MIN_VOLUME
