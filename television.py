@@ -59,5 +59,16 @@ class Television:
             if self.__volume > Television.MIN_VOLUME:
                 #If volume is greater than min volume it decreases volume by 1
                 self.__volume -= 1
+    def get_status(self) -> bool:
+        return self.__status
+
+    def get_muted(self) -> bool:
+        return self.__muted
+
+    def get_volume(self) -> int:
+        return self.__volume
+
+    def get_channel(self) -> int:
+        return self.__channel
     def __str__(self) -> str:
         return f"Power = {self.__status}, Channel = {self.__channel}, Volume = {self.__volume}"
