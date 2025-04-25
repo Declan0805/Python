@@ -98,24 +98,68 @@ class Ui_Television(object):
         self.pushButton_5.setText(_translate("Television", "Power"))
         self.pushButton_6.setText(_translate("Television", "Mute"))
 
+
+        """
+        Connects the buttons to their respective functions
+        The functions are as follows:
+        - power_button
+        -- Uses the power function from the Television class
+        - volume_up_button
+        -- Uses the volume_up function from the Television class
+        - volume_down_button
+        -- Uses the volume_down function from the Television class
+        - mute_button
+        -- Uses the mute function from the Television class
+        - channel_up_button
+        -- Uses the channel_up function from the Television class
+        - channel_down_button
+        -- Uses the channel_down function from the Television class
+        """
         self.pushButton_5.clicked.connect(self.power_button)
         self.pushButton_2.clicked.connect(self.volume_up_button)
         self.pushButton.clicked.connect(self.volume_down_button)
         self.pushButton_6.clicked.connect(self.mute_button)
+        self.pushButton_3.clicked.connect(self.channel_up_button)
+        self.pushButton_4.clicked.connect(self.channel_down_button)
 
-    def power_button(self):
+    """
+    The functions all change the label text to reflect the current state of the television
+    And the current state of the television based on the button pressed
+    
+    """
+    def power_button(self) -> None:
         tv.power()
         self.label.setText(tv.get_status())
-    def volume_up_button(self):
-        tv.volume_up()
-        self.label.setText(tv.get_volume())
-    def volume_down_button(self):
-        tv.volume_down()
-        self.label.setText(tv.get_volume())
-    def mute_button(self):
-        tv.mute()
-        self.label.setText(tv.get_muted())
-
+    def volume_up_button(self) -> None:
+        try:
+            tv.volume_up()
+            self.label.setText(tv.get_volume())
+        except ValueError as e:
+            self.label.setText(str(e))
+    def volume_down_button(self) -> None:
+        try:
+            tv.volume_down()
+            self.label.setText(tv.get_volume())
+        except ValueError as e:
+            self.label.setText(str(e))
+    def mute_button(self) -> None:
+        try:
+            tv.mute()
+            self.label.setText(tv.get_muted())
+        except ValueError as e:
+            self.label.setText(str(e))
+    def channel_up_button(self) -> None:
+        try:
+            tv.channel_up()
+            self.label.setText(tv.get_channel())
+        except ValueError as e:
+            self.label.setText(str(e))
+    def channel_down_button(self) -> None:
+        try:
+            tv.channel_down()
+            self.label.setText(tv.get_channel())
+        except ValueError as e:
+            self.label.setText(str(e))
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

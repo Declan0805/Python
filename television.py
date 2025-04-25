@@ -22,19 +22,27 @@ class Television:
         """Toggle the mute status of the TV."""
         if self._status:
             self._muted = not self._muted
+        else:
+            raise ValueError("TV is off")
 
     def channel_up(self) -> None:
         """Increase the TV channel or loop back to minimum if at max."""
+        if not self._status:
+            raise ValueError("TV is off")
         if self._status:
             self._channel = (self._channel + 1) if self._channel < Television.MAX_CHANNEL else Television.MIN_CHANNEL
 
     def channel_down(self) -> None:
         """Decrease the TV channel or loop back to max if at minimum."""
+        if not self._status:
+            raise ValueError("TV is off")
         if self._status:
             self._channel = (self._channel - 1) if self._channel > Television.MIN_CHANNEL else Television.MAX_CHANNEL
 
     def volume_up(self) -> None:
         """Increase the volume or do nothing if at max. Unmute if muted."""
+        if not self._status:
+            raise ValueError("TV is off")
         if self._status:
             if self._muted:
                 self._muted = False
@@ -43,6 +51,8 @@ class Television:
 
     def volume_down(self) -> None:
         """Decrease the volume or do nothing if at min. Unmute if muted."""
+        if not self._status:
+            raise ValueError("TV is off")
         if self._status:
             if self._muted:
                 self._muted = False
@@ -57,19 +67,19 @@ class Television:
             return f"The TV is off"
     def get_muted(self)->bool:
         """Return the mute status of the TV."""
-        if self._status:
+        try:
             if self._muted:
-                return f"The TV is muted"
+                return f"TV is muted"
             else:
-                return f"The TV is not muted"
-        else:
-            return f"TV is off"
+                return f"TV is not muted"
+        except ValueError as e:
+            return f"{e}"
     def get_volume(self) -> int:
         """Return the current volume of the TV."""
         if self._status:
             return f"TV volume is {self._volume}"
         else:
-            return f"TV is off"
+            raise ValueError("TV is off")
     def get_channel(self) -> int:
         """Return the current channel of the TV."""
         if self._status:
